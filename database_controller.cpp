@@ -137,10 +137,10 @@ void DatabaseController::printCoachesCommand()
     {
         chPtr = coachData[i];
         cout << i+1 << ":     "
-        << setw(5) << chPtr->getCoachID()
+        << setw(10) << chPtr->getCoachID()
         << setw(10) << chPtr->getSeason()
         << setw(10) << chPtr->getFirstName()
-        << setw(10) << chPtr->getLastName()
+        << setw(15) << chPtr->getLastName()
         << setw(10) << chPtr->getSeasonWin()
         << setw(10) << chPtr->getSeasonLoss()
         << setw(10) << chPtr->getPlayoffWin()
@@ -157,11 +157,11 @@ void DatabaseController::printTeamsCommand()
     for(unsigned int i = 0; i < teamData.size(); i++)
     {
         tmPtr = teamData[i];
-        cout << i+1 << setw(10)
+        cout << i+1
         << setw(10) << tmPtr->getTeamID()
-        << setw(10) << tmPtr->getLocation()
-        << setw(10) << tmPtr->getName()
-        << setw(10) << tmPtr->getLeague() << endl;
+        << setw(15) << tmPtr->getLocation()
+        << setw(20) << tmPtr->getName()
+        << setw(15) << tmPtr->getLeague() << endl;
 
     }
 }
