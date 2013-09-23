@@ -9,14 +9,14 @@ void displayHelp(void);
 
 int main()
 {
-    cout << "The mini-DB of NBA coaches and teams" << endl;
-    cout << "Please enter a command.  Enter 'help' for a list of commands." << endl;
-
     string inputStr;
     DatabaseController controller;
 
     if(!controller.loadFile())
         return 0;
+
+    cout << "The mini-DB of NBA coaches and teams" << endl;
+    cout << "Please enter a command.  Enter 'help' for a list of commands." << endl;
 
     while(1)
     {
@@ -29,7 +29,9 @@ int main()
         else if(inputStr.compare("add_team") == 0)
             cout << "correct" << endl;
             else if(inputStr.compare("print_coaches") == 0)
-                cout << "correct" << endl;
+                controller.printCoachesCommand();
+            else if(inputStr.compare("print_teams") == 0)
+                controller.printTeamsCommand();
             else if(inputStr.compare("coaches_by_name") == 0)
                 cout << "correct" << endl;
             else if(inputStr.compare("teams_by_city") == 0)
@@ -58,8 +60,7 @@ int main()
 
 void displayHelp(void)
 {
-    cout << "add_coach ID SEASON FIRST_NAME LAST_NAME SEASON_WIN" << endl;
-    cout << "          SEASON_LOSS PLAYOFF_WIN PLAYOFF_LOSS TEAM - add new coach data" << endl;
+    cout << "add_coach ID SEASON FIRST_NAME LAST_NAME SEASON_WIN SEASON_LOSS PLAYOFF_WIN PLAYOFF_LOSS TEAM - add new coach data" << endl;
     cout << "add_team ID LOCATION NAME LEAGUE - add a new team" << endl;
     cout << "print_coaches - print a listing of all coaches" << endl;
     cout << "print_teams - print a listing of all teams" << endl;

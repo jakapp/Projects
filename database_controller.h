@@ -2,6 +2,7 @@
 #define DATABASE_CONTROLLER_H
 
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <vector>
 #include <stdlib.h>
@@ -16,6 +17,9 @@ public:
     bool loadFile();
     bool parseCoachFile(ifstream &coachFile);
     bool parseTeamFile(ifstream &teamFile);
+
+    void printCoachesCommand();
+    void printTeamsCommand();
 
 private:
     vector<Coaches*> coachData;

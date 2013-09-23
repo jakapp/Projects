@@ -120,10 +120,48 @@ bool DatabaseController::parseTeamFile(ifstream &teamFile)
             else if(i == 3)
                 tmPtr->setLeague(*((char*)(token.c_str())));
             }
-    }
         teamData.push_back(tmPtr);
+    }
+
         tmPtr = NULL;
 
     cout << "Team parsing complete!" << endl;
     return true;
+}
+
+void DatabaseController::printCoachesCommand()
+{
+    Coaches *chPtr = NULL;
+
+    for(unsigned int i = 0; i < coachData.size(); i++)
+    {
+        chPtr = coachData[i];
+        cout << i+1 << ":     "
+        << setw(5) << chPtr->getCoachID()
+        << setw(10) << chPtr->getSeason()
+        << setw(10) << chPtr->getFirstName()
+        << setw(10) << chPtr->getLastName()
+        << setw(10) << chPtr->getSeasonWin()
+        << setw(10) << chPtr->getSeasonLoss()
+        << setw(10) << chPtr->getPlayoffWin()
+        << setw(10) << chPtr->getPlayoffLoss()
+        << setw(10) << chPtr->getTeam() << endl;
+    }
+
+}
+
+void DatabaseController::printTeamsCommand()
+{
+    Teams *tmPtr = NULL;
+
+    for(unsigned int i = 0; i < teamData.size(); i++)
+    {
+        tmPtr = teamData[i];
+        cout << i+1 << setw(10)
+        << setw(10) << tmPtr->getTeamID()
+        << setw(10) << tmPtr->getLocation()
+        << setw(10) << tmPtr->getName()
+        << setw(10) << tmPtr->getLeague() << endl;
+
+    }
 }
