@@ -15,6 +15,8 @@ class DatabaseController
 {
 public:
     bool loadFile();
+    bool loadFileCoaches(string path);
+    bool loadFileTeams(string path);
     bool parseCoachFile(ifstream &coachFile);
     bool parseTeamFile(ifstream &teamFile);
 

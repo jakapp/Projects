@@ -9,44 +9,55 @@ void displayHelp(void);
 
 int main()
 {
+    string token;
+    string token2;
+    string space = " ";
     string inputStr;
+    bool success;
     DatabaseController controller;
 
-    if(!controller.loadFile())
-        return 0;
+   // if(!controller.loadFile())
+   //     return 0;
 
     cout << "The mini-DB of NBA coaches and teams" << endl;
     cout << "Please enter a command.  Enter 'help' for a list of commands." << endl;
+    cout << endl;
 
     while(1)
     {
+        cout << "Command: ";
         getline(cin, inputStr);
+        token = inputStr.substr(0,inputStr.find(space));
+        inputStr.erase(0, inputStr.find(space) + space.length());
+        token2 = inputStr;
+        cout << endl;
 
-        if(inputStr.compare("help") == 0)
+        if(token.compare("help") == 0)
             displayHelp();
-        else if(inputStr.compare("add_coach") == 0)
+        else if(token.compare("add_coach") == 0)
             cout << "correct" << endl;
-        else if(inputStr.compare("add_team") == 0)
+        else if(token.compare("add_team") == 0)
             cout << "correct" << endl;
-            else if(inputStr.compare("print_coaches") == 0)
+            else if(token.compare("print_coaches") == 0)
                 controller.printCoachesCommand();
-            else if(inputStr.compare("print_teams") == 0)
+            else if(token.compare("print_teams") == 0)
                 controller.printTeamsCommand();
-            else if(inputStr.compare("coaches_by_name") == 0)
+            else if(token.compare("coaches_by_name") == 0)
                 cout << "correct" << endl;
-            else if(inputStr.compare("teams_by_city") == 0)
+            else if(token.compare("teams_by_city") == 0)
                 cout << "correct" << endl;
-            else if(inputStr.compare("load_coaches") == 0)
+            else if(token.compare("load_coaches") == 0){
+               controller.loadFileCoaches(token2);
+        }
+        else if(token.compare("load_team") == 0)
+            controller.loadFileTeams(token2);
+            else if(token.compare("best_coach") == 0)
                 cout << "correct" << endl;
-        else if(inputStr.compare("load_team") == 0)
-            cout << "correct" << endl;
-            else if(inputStr.compare("best_coach") == 0)
+            else if(token.compare("search_coaches") == 0)
                 cout << "correct" << endl;
-            else if(inputStr.compare("search_coaches") == 0)
+            else if(token.compare("delete_coaches") == 0)
                 cout << "correct" << endl;
-            else if(inputStr.compare("delete_coaches") == 0)
-                cout << "correct" << endl;
-        else if(inputStr.compare("exit") == 0){
+        else if(token.compare("exit") == 0){
             cout << "Leaving the database, goodbye!" << endl;
             break;
         }

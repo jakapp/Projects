@@ -31,6 +31,44 @@ bool DatabaseController::loadFile()
     return true;
 }
 
+bool DatabaseController::loadFileCoaches(string path)
+{
+    bool success;
+
+    ifstream coachFile(path.c_str());
+    if(!coachFile.is_open()){
+        cout << "****** FAILED TO LOAD COACH DATABASE FILE. ABORTING ******" << endl;
+        return false;
+    }
+
+    success = parseCoachFile(coachFile);
+    if(!success){
+        cout << "***** COACH DATABASE PARSING FAILED ******" << endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool DatabaseController::loadFileTeams(string path)
+{
+    bool success;
+
+    ifstream teamFile(path.c_str());
+    if(!teamFile.is_open()){
+        cout << "****** FAILED TO LOAD TEAM DATABASE FILE. ABORTING ******" << endl;
+        return false;
+    }
+
+    success = parseTeamFile(teamFile);
+    if(!success){
+        cout << "***** COACH DATABASE PARSING FAILED ******" << endl;
+        return false;
+    }
+
+    return true;
+}
+
 bool DatabaseController::parseCoachFile(ifstream &coachFile)
 {
     int buffer;
