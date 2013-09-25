@@ -123,6 +123,8 @@ bool DatabaseController::parseCoachFile(ifstream &coachFile)
         chPtr = NULL;
     }
 
+    coachData.pop_back();
+
     cout << "Coach parsing complete!" << endl;
     return true;
 }
@@ -130,6 +132,9 @@ bool DatabaseController::parseCoachFile(ifstream &coachFile)
 bool DatabaseController::parseTeamFile(ifstream &teamFile)
 {
     string token;
+    string token2;
+    string token3;
+    char token4;
     string test;
     string comma = ",";
     Teams *tmPtr = NULL;
@@ -145,23 +150,27 @@ bool DatabaseController::parseTeamFile(ifstream &teamFile)
         }
 
         getline(teamFile,test);
-        for(int i = 0; i < 3; i++){
-            token = test.substr(0,test.find(comma));
-            test.erase(0, test.find(comma) + comma.length());
 
-            if(i == 0)
-                tmPtr->setTeamID(token);
-            else if(i == 1)
-                tmPtr->setLocation(token);
-            else if(i == 2)
-                tmPtr->setName(token);
-            else if(i == 3)
-                tmPtr->setLeague(*((char*)(token.c_str())));
-            }
+        token = test.substr(0,test.find(comma));
+        test.erase(0, test.find(comma) + comma.length());
+        token2 = test.substr(0,test.find(comma));
+        test.erase(0, test.find(comma) + comma.length());
+        token3 = test.substr(0,test.find(comma));
+        test.erase(0, test.find(comma) + comma.length());
+        token4 = *((char*)(test.substr(0,test.find(comma))).c_str());
+        test.erase(0, test.find(comma) + comma.length());
+
+        tmPtr->setTeamID(token);
+        tmPtr->setLocation(token2);
+        tmPtr->setName(token3);
+        tmPtr->setLeague(token4);
+
         teamData.push_back(tmPtr);
     }
 
-        tmPtr = NULL;
+    tmPtr = NULL;
+
+    teamData.pop_back();
 
     cout << "Team parsing complete!" << endl;
     return true;
@@ -252,19 +261,22 @@ void DatabaseController::printTeamsByCity(string name)
     }
 }
 
-void DatabaseController::printBestCoach()
+void DatabaseController::printBestCoach(string year)
 {
     Coaches *chPtr = NULL;
     int index = 0;
     int bestTotal = 0;
     int totalTemp = 0;
+    int yr = atoi(year.c_str());
 
     for(unsigned int i = 0; i < coachData.size(); i++){
         chPtr = coachData[i];
-        totalTemp = (chPtr->getSeasonWin() + chPtr->getSeasonLoss()) + (chPtr->getPlayoffWin() - chPtr->getPlayoffLoss());
-        if(totalTemp > bestTotal){
-            bestTotal = totalTemp;
-            index = i;
+        if(yr == chPtr->getSeason()){
+            totalTemp = (chPtr->getSeasonWin() - chPtr->getSeasonLoss()) + (chPtr->getPlayoffWin() - chPtr->getPlayoffLoss());
+            if(totalTemp > bestTotal){
+                bestTotal = totalTemp;
+                index = i;
+            }
         }
     }
 

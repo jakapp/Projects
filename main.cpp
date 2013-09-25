@@ -77,7 +77,7 @@ int main()
         else if(token.compare("load_team") == 0)
             controller.loadFileTeams(token2);
         else if(token.compare("best_coach") == 0)
-            controller.printBestCoach();
+            controller.printBestCoach(token2);
         else if(token.compare("exit") == 0){
             cout << "Leaving the database, goodbye!" << endl;
             break;

@@ -27,7 +27,7 @@ public:
     void printTeamsCommand();
     void printCoachesByName(string name);
     void printTeamsByCity(string name);
-    void printBestCoach();
+    void printBestCoach(string year);
 
 private:
     vector<Coaches*> coachData;
