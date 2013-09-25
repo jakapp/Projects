@@ -11,6 +11,14 @@ int main()
 {
     string token;
     string token2;
+    string token3;
+    string token4;
+    string token5;
+    string token6;
+    string token7;
+    string token8;
+    string token9;
+    string token10;
     string space = " ";
     string inputStr;
     bool success;
@@ -25,38 +33,51 @@ int main()
 
     while(1)
     {
+        cout << endl;
         cout << "Command: ";
         getline(cin, inputStr);
         token = inputStr.substr(0,inputStr.find(space));
         inputStr.erase(0, inputStr.find(space) + space.length());
-        token2 = inputStr;
+        token2 = inputStr.substr(0,inputStr.find(space));
+        inputStr.erase(0, inputStr.find(space) + space.length());
+        token3 = inputStr.substr(0,inputStr.find(space));
+        inputStr.erase(0, inputStr.find(space) + space.length());
+        token4 = inputStr.substr(0,inputStr.find(space));
+        inputStr.erase(0, inputStr.find(space) + space.length());
+        token5 = inputStr.substr(0,inputStr.find(space));
+        inputStr.erase(0, inputStr.find(space) + space.length());
+        token6 = inputStr.substr(0,inputStr.find(space));
+        inputStr.erase(0, inputStr.find(space) + space.length());
+        token7 = inputStr.substr(0,inputStr.find(space));
+        inputStr.erase(0, inputStr.find(space) + space.length());
+        token8 = inputStr.substr(0,inputStr.find(space));
+        inputStr.erase(0, inputStr.find(space) + space.length());
+        token9 = inputStr.substr(0,inputStr.find(space));
+        inputStr.erase(0, inputStr.find(space) + space.length());
+        token10 = inputStr.substr(0,inputStr.find(space));
+        inputStr.erase(0, inputStr.find(space) + space.length());
         cout << endl;
 
         if(token.compare("help") == 0)
             displayHelp();
         else if(token.compare("add_coach") == 0)
-            cout << "correct" << endl;
+           controller.addCoach(token2, token3, token4, token5, token6, token7, token8, token9, token10);
         else if(token.compare("add_team") == 0)
-            cout << "correct" << endl;
-            else if(token.compare("print_coaches") == 0)
-                controller.printCoachesCommand();
-            else if(token.compare("print_teams") == 0)
-                controller.printTeamsCommand();
-            else if(token.compare("coaches_by_name") == 0)
-                cout << "correct" << endl;
-            else if(token.compare("teams_by_city") == 0)
-                cout << "correct" << endl;
-            else if(token.compare("load_coaches") == 0){
-               controller.loadFileCoaches(token2);
-        }
+            controller.addTeam(token2, token3, token4, *((char*)token5.c_str()));
+        else if(token.compare("print_coaches") == 0)
+            controller.printCoachesCommand();
+        else if(token.compare("print_teams") == 0)
+            controller.printTeamsCommand();
+        else if(token.compare("coaches_by_name") == 0)
+            controller.printCoachesByName(token2);
+        else if(token.compare("teams_by_city") == 0)
+            controller.printTeamsByCity(token2);
+        else if(token.compare("load_coaches") == 0)
+            controller.loadFileCoaches(token2);
         else if(token.compare("load_team") == 0)
             controller.loadFileTeams(token2);
-            else if(token.compare("best_coach") == 0)
-                cout << "correct" << endl;
-            else if(token.compare("search_coaches") == 0)
-                cout << "correct" << endl;
-            else if(token.compare("delete_coaches") == 0)
-                cout << "correct" << endl;
+        else if(token.compare("best_coach") == 0)
+            controller.printBestCoach();
         else if(token.compare("exit") == 0){
             cout << "Leaving the database, goodbye!" << endl;
             break;
@@ -80,7 +101,5 @@ void displayHelp(void)
     cout << "load_coach FILENAME - bulk load of coach info from a file" << endl;
     cout << "load_team FILENAME - bulk load of team info from a file" << endl;
     cout << "best_coach SEASON - print the name of the coach with the most netwins in a specified season" << endl;
-    cout << "search_coaches field=VALUE - print the name of the coach satisfying the specified conditions" << endl;
-    cout << "delete_coaches field=VALUE - delete the coach satisfying the specified conditions" << endl;
     cout << "exit - quit the program" << endl;
 }

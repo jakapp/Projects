@@ -192,6 +192,8 @@ void DatabaseController::printTeamsCommand()
 {
     Teams *tmPtr = NULL;
 
+    cout << "#" << setw(10) << "team_id" << setw(15) << "location" << setw(20) << "name" << setw(15) << "league" << endl;
+
     for(unsigned int i = 0; i < teamData.size(); i++)
     {
         tmPtr = teamData[i];
@@ -202,4 +204,112 @@ void DatabaseController::printTeamsCommand()
         << setw(15) << tmPtr->getLeague() << endl;
 
     }
+}
+
+void DatabaseController::printCoachesByName(string name)
+{
+    Coaches *chPtr = NULL;
+    int cnt = 1;
+
+//    cout << "#" << setw(10) << "coach_ID" << setw(10) << "season" << setw(10) << "first_name" << setw(15) << "last_name" << setw(10) << "season_win"
+//         << setw(10) << "season_loss" << setw(10) << "playoff_win" << setw(10) << "playoff_loss" << setw(10) << "team" << endl;
+
+    for(unsigned int i = 0; i < coachData.size(); i++){
+        chPtr = coachData[i];
+        if(name.compare(chPtr->getLastName()) == 0){
+            cout << cnt << ":    "
+            << setw(10) << chPtr->getCoachID()
+            << setw(10) << chPtr->getSeason()
+            << setw(10) << chPtr->getFirstName()
+            << setw(15) << chPtr->getLastName()
+            << setw(10) << chPtr->getSeasonWin()
+            << setw(10) << chPtr->getSeasonLoss()
+            << setw(10) << chPtr->getPlayoffWin()
+            << setw(10) << chPtr->getPlayoffLoss()
+            << setw(10) << chPtr->getTeam() << endl;
+            cnt++;
+        }
+    }
+}
+
+void DatabaseController::printTeamsByCity(string name)
+{
+    Teams *tmPtr = NULL;
+    int cnt = 1;
+
+    cout << "#" << setw(10) << "team_id" << setw(15) << "location" << setw(20) << "name" << setw(15) << "league" << endl;
+
+    for(unsigned int i = 0; i < teamData.size(); i++){
+        tmPtr = teamData[i];
+        if(name.compare(tmPtr->getLocation()) == 0){
+            cout << cnt
+            << setw(10) << tmPtr->getTeamID()
+            << setw(15) << tmPtr->getLocation()
+            << setw(20) << tmPtr->getName()
+            << setw(15) << tmPtr->getLeague() << endl;
+            cnt++;
+        }
+    }
+}
+
+void DatabaseController::printBestCoach()
+{
+    Coaches *chPtr = NULL;
+    int index = 0;
+    int bestTotal = 0;
+    int totalTemp = 0;
+
+    for(unsigned int i = 0; i < coachData.size(); i++){
+        chPtr = coachData[i];
+        totalTemp = (chPtr->getSeasonWin() + chPtr->getSeasonLoss()) + (chPtr->getPlayoffWin() - chPtr->getPlayoffLoss());
+        if(totalTemp > bestTotal){
+            bestTotal = totalTemp;
+            index = i;
+        }
+    }
+
+    chPtr = coachData[index];
+    cout << index << ":    "
+    << setw(10) << chPtr->getCoachID()
+    << setw(10) << chPtr->getSeason()
+    << setw(10) << chPtr->getFirstName()
+    << setw(15) << chPtr->getLastName()
+    << setw(10) << chPtr->getSeasonWin()
+    << setw(10) << chPtr->getSeasonLoss()
+    << setw(10) << chPtr->getPlayoffWin()
+    << setw(10) << chPtr->getPlayoffLoss()
+    << setw(10) << chPtr->getTeam() << endl;
+}
+
+void DatabaseController::addCoach(string coachid, string season, string fname, string lname, string swin, string sloss, string pwin, string ploss, string tm)
+{
+    Coaches *chPtr = new Coaches;
+
+    chPtr->setCoachID(coachid);
+    chPtr->setSeason(atoi(season.c_str()));
+    chPtr->setFirstName(fname);
+    chPtr->setLastName(lname);
+    chPtr->setSeasonWin(atoi(swin.c_str()));
+    chPtr->setSeasonLoss(atoi(sloss.c_str()));
+    chPtr->setPlayoffWin(atoi(pwin.c_str()));
+    chPtr->setPlayoffLoss(atoi(ploss.c_str()));
+    chPtr->setTeam(tm);
+
+    coachData.push_back(chPtr);
+
+    chPtr = NULL;
+}
+
+void DatabaseController::addTeam(string teamid, string loc, string nm, char lge)
+{
+    Teams *tmPtr = new Teams;
+
+    tmPtr->setTeamID(teamid);
+    tmPtr->setLocation(loc);
+    tmPtr->setName(nm);
+    tmPtr->setLeague(lge);
+
+    teamData.push_back(tmPtr);
+
+    tmPtr = NULL;
 }

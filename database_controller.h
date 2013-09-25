@@ -20,8 +20,14 @@ public:
     bool parseCoachFile(ifstream &coachFile);
     bool parseTeamFile(ifstream &teamFile);
 
+    void addCoach(string coachid, string season, string fname, string lname, string swin, string sloss, string pwin, string ploss, string tm);
+    void addTeam(string teamid, string loc, string nm, char lge);
+
     void printCoachesCommand();
     void printTeamsCommand();
+    void printCoachesByName(string name);
+    void printTeamsByCity(string name);
+    void printBestCoach();
 
 private:
     vector<Coaches*> coachData;
